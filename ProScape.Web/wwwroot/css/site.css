@@ -18,5 +18,14 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Minimumi është lartësia e viewport-it */
+    margin: 0;
+}
+
+footer {
+    background-color: #6a1b9a; /* Ngjyra e prapavijës */
+    color: ed; /* Ngjyra e tekstit */
+    text-align: center; /* Centrojmë tekstin */
 }
