@@ -1,6 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using ProScape.Web.Models;
-using System.Diagnostics;
 
 namespace ProScape.Web.Controllers
 {
@@ -23,10 +21,9 @@ namespace ProScape.Web.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View();
         }
     }
 }
