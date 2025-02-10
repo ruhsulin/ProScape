@@ -47,7 +47,7 @@ public class VillaController : Controller
     {
         Villa? obj = _db.Villas.FirstOrDefault(u => u.Id == villaId);
 
-        if (obj == null)
+        if (obj is null)
         {
             return RedirectToAction("Error", "Home");
         }
@@ -61,6 +61,34 @@ public class VillaController : Controller
         if ((ModelState.IsValid))
         {
             _db.Villas.Update(villa);
+            _db.SaveChanges();
+            return RedirectToAction("Index", "Villa");
+        }
+
+        return View();
+    }
+
+    [HttpGet]
+    public IActionResult Delete(int villaId)
+    {
+        Villa? obj = _db.Villas.FirstOrDefault(u => u.Id == villaId);
+
+        if (obj is null)
+        {
+            return RedirectToAction("Error", "Home");
+        }
+
+        return View(obj);
+    }
+
+    [HttpPost]
+    public IActionResult Delete(Villa villa)
+    {
+        Villa? objFromDb = _db.Villas.FirstOrDefault(u => u.Id == villa.Id);
+
+        if (objFromDb is not null)
+        {
+            _db.Villas.Remove(objFromDb);
             _db.SaveChanges();
             return RedirectToAction("Index", "Villa");
         }
