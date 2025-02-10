@@ -41,4 +41,30 @@ public class VillaController : Controller
 
         return View();
     }
+
+    [HttpGet]
+    public IActionResult Update(int villaId)
+    {
+        Villa? obj = _db.Villas.FirstOrDefault(u => u.Id == villaId);
+
+        if (obj == null)
+        {
+            return RedirectToAction("Error", "Home");
+        }
+
+        return View(obj);
+    }
+
+    [HttpPost]
+    public IActionResult Update(Villa villa)
+    {
+        if ((ModelState.IsValid))
+        {
+            _db.Villas.Update(villa);
+            _db.SaveChanges();
+            return RedirectToAction("Index", "Villa");
+        }
+
+        return View();
+    }
 }
