@@ -41,7 +41,8 @@ namespace ProScape.Infrastructure.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<int>("Occupancy")
                         .HasColumnType("int");
@@ -63,39 +64,105 @@ namespace ProScape.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2025, 2, 9, 13, 17, 14, 487, DateTimeKind.Utc).AddTicks(5264),
+                            CreatedDate = new DateTime(2025, 3, 14, 23, 11, 16, 747, DateTimeKind.Utc).AddTicks(9403),
                             Description = "A stunning villa with direct beach access and breathtaking ocean views.",
                             ImageUrl = "https://static.independent.co.uk/2024/01/09/12/FAO_83054_Villa_Mangas_Albufeira_0723_01_RGB-136-DPI-For-Web.jpg",
                             Name = "Luxury Beachfront Villa",
                             Occupancy = 8,
                             Price = 500.0,
                             Sqft = 3500,
-                            UpdatedDate = new DateTime(2025, 2, 9, 13, 17, 14, 487, DateTimeKind.Utc).AddTicks(5270)
+                            UpdatedDate = new DateTime(2025, 3, 14, 23, 11, 16, 747, DateTimeKind.Utc).AddTicks(9409)
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2025, 2, 9, 13, 17, 14, 487, DateTimeKind.Utc).AddTicks(5272),
+                            CreatedDate = new DateTime(2025, 3, 14, 23, 11, 16, 747, DateTimeKind.Utc).AddTicks(9412),
                             Description = "A cozy villa nestled in the mountains, perfect for a relaxing getaway.",
                             ImageUrl = "https://media.graphassets.com/kcqbCpucTbmzbM5yqelI",
                             Name = "Mountain Retreat",
                             Occupancy = 6,
                             Price = 300.0,
                             Sqft = 2500,
-                            UpdatedDate = new DateTime(2025, 2, 9, 13, 17, 14, 487, DateTimeKind.Utc).AddTicks(5272)
+                            UpdatedDate = new DateTime(2025, 3, 14, 23, 11, 16, 747, DateTimeKind.Utc).AddTicks(9412)
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2025, 2, 9, 13, 17, 14, 487, DateTimeKind.Utc).AddTicks(5274),
+                            CreatedDate = new DateTime(2025, 3, 14, 23, 11, 16, 747, DateTimeKind.Utc).AddTicks(9414),
                             Description = "A modern penthouse villa located in the heart of the city with skyline views.",
                             ImageUrl = "https://static.baranselgrup.com/nwm-248899-w1278-bavadi-villalari.png",
                             Name = "Urban Penthouse",
                             Occupancy = 10,
                             Price = 700.0,
                             Sqft = 4000,
-                            UpdatedDate = new DateTime(2025, 2, 9, 13, 17, 14, 487, DateTimeKind.Utc).AddTicks(5274)
+                            UpdatedDate = new DateTime(2025, 3, 14, 23, 11, 16, 747, DateTimeKind.Utc).AddTicks(9414)
                         });
+                });
+
+            modelBuilder.Entity("ProScape.Domain.Entities.VillaNumber", b =>
+                {
+                    b.Property<int>("Villa_Number")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SpecialDetails")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("VillaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Villa_Number");
+
+                    b.HasIndex("VillaId");
+
+                    b.ToTable("VillaNumbers");
+
+                    b.HasData(
+                        new
+                        {
+                            Villa_Number = 101,
+                            VillaId = 1
+                        },
+                        new
+                        {
+                            Villa_Number = 102,
+                            VillaId = 1
+                        },
+                        new
+                        {
+                            Villa_Number = 103,
+                            VillaId = 1
+                        },
+                        new
+                        {
+                            Villa_Number = 201,
+                            VillaId = 2
+                        },
+                        new
+                        {
+                            Villa_Number = 202,
+                            VillaId = 2
+                        },
+                        new
+                        {
+                            Villa_Number = 301,
+                            VillaId = 3
+                        },
+                        new
+                        {
+                            Villa_Number = 302,
+                            VillaId = 3
+                        });
+                });
+
+            modelBuilder.Entity("ProScape.Domain.Entities.VillaNumber", b =>
+                {
+                    b.HasOne("ProScape.Domain.Entities.Villa", "Villa")
+                        .WithMany()
+                        .HasForeignKey("VillaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Villa");
                 });
 #pragma warning restore 612, 618
         }
