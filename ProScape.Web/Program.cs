@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using ProScape.Application.Common.Interfaces;
 using ProScape.Infrastructure.Data;
+using ProScape.Infrastructure.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(option =>
 option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+
+// Add Dependencies
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
