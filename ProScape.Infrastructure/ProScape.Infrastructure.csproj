@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ProScape.Domain\ProScape.Domain.csproj" />
+    <ProjectReference Include="..\ProScape.Application\ProScape.Application.csproj" />
   </ItemGroup>
 
 </Project>
