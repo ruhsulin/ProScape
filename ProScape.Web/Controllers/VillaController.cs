@@ -1,21 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ProScape.Application.Common.Interfaces;
 using ProScape.Domain.Entities;
-using ProScape.Infrastructure.Data;
 
 namespace ProScape.Web.Controllers;
 
 public class VillaController : Controller
 {
-    private readonly ApplicationDbContext _db;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public VillaController(ApplicationDbContext db)
+    public VillaController(IUnitOfWork unitOfWork)
     {
-        _db = db;
+        _unitOfWork = unitOfWork;
     }
 
     public IActionResult Index()
     {
-        var villas = _db.Villas.ToList();
+        var villas = _unitOfWork.Villa.GetAll();
         return View(villas);
     }
 
@@ -34,8 +34,8 @@ public class VillaController : Controller
 
         if ((ModelState.IsValid))
         {
-            _db.Villas.Add(villa);
-            _db.SaveChanges();
+            _unitOfWork.Villa.Add(villa);
+            _unitOfWork.Save();
             TempData["success"] = "The villa has been created successfully.";
             return RedirectToAction("Index", "Villa");
         }
@@ -46,7 +46,7 @@ public class VillaController : Controller
     [HttpGet]
     public IActionResult Update(int villaId)
     {
-        Villa? obj = _db.Villas.FirstOrDefault(u => u.Id == villaId);
+        Villa? obj = _unitOfWork.Villa.Get(u => u.Id == villaId);
 
         if (obj is null)
         {
@@ -59,13 +59,14 @@ public class VillaController : Controller
     [HttpPost]
     public IActionResult Update(Villa villa)
     {
-        if ((ModelState.IsValid))
+        if (ModelState.IsValid && villa.Id > 0)
         {
-            _db.Villas.Update(villa);
-            _db.SaveChanges();
+            _unitOfWork.Villa.Update(villa);
+            _unitOfWork.Save();
             TempData["success"] = "The villa has been updated successfully.";
             return RedirectToAction("Index", "Villa");
         }
+
         TempData["error"] = "The villa could not been updated!";
         return View();
     }
@@ -73,7 +74,7 @@ public class VillaController : Controller
     [HttpGet]
     public IActionResult Delete(int villaId)
     {
-        Villa? obj = _db.Villas.FirstOrDefault(u => u.Id == villaId);
+        Villa? obj = _unitOfWork.Villa.Get(u => u.Id == villaId);
 
         if (obj is null)
         {
@@ -86,15 +87,16 @@ public class VillaController : Controller
     [HttpPost]
     public IActionResult Delete(Villa villa)
     {
-        Villa? objFromDb = _db.Villas.FirstOrDefault(u => u.Id == villa.Id);
+        Villa? objFromDb = _unitOfWork.Villa.Get(u => u.Id == villa.Id);
 
         if (objFromDb is not null)
         {
-            _db.Villas.Remove(objFromDb);
-            _db.SaveChanges();
+            _unitOfWork.Villa.Remove(objFromDb);
+            _unitOfWork.Save();
             TempData["success"] = "The villa has been deleted successfully.";
             return RedirectToAction("Index", "Villa");
         }
+
         TempData["error"] = "The villa could not been deleted!";
         return View();
     }
