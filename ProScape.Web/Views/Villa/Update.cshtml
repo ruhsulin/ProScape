@@ -12,72 +12,80 @@
     <!-- end of card-header -->
     <!-- card-body -->
     <div class="card-body border p-2">
-        <form method="post" class="row">
+        <form method="post" class="row" enctype="multipart/form-data">
             <input asp-for="Id" hidden />
-            <div class="p-3">
-                <!-- Name -->
-                <div class="form-floating py-3 col-12">
-                    <input asp-for="Name" class="form-control border shadow" />
-                    <label asp-for="Name" class="ms-2"></label>
-                    <span asp-validation-for="Name" class="text-danger"></span>
-                </div>
-
-                <!-- Description -->
-                <div class="form-floating py-3 col-12">
-                    <input asp-for="Description" class="form-control border shadow" />
-                    <label asp-for="Description" class="ms-2"></label>
-                    <span asp-validation-for="Description" class="text-danger"></span>
-                </div>
-
-                <!-- Price -->
-                <div class="form-floating py-3 col-12">
-                    <input asp-for="Price" class="form-control border shadow" />
-                    <label asp-for="Price" class="ms-2"></label>
-                    <span asp-validation-for="Price" class="text-danger"></span>
-                </div>
-
-                <!-- Sqft -->
-                <div class="form-floating py-3 col-12">
-                    <input asp-for="Sqft" class="form-control border shadow" />
-                    <label asp-for="Sqft" class="ms-2"></label>
-                    <span asp-validation-for="Sqft" class="text-danger"></span>
-                </div>
-
-                <!-- Occupancy -->
-                <div class="form-floating py-3 col-12">
-                    <input asp-for="Occupancy" class="form-control border shadow" />
-                    <label asp-for="Occupancy" class="ms-2"></label>
-                    <span asp-validation-for="Occupancy" class="text-danger"></span>
-                </div>
-
-                <!-- Image -->
-                <div class="form-floating py-3 col-12">
-                    <input asp-for="ImageUrl" class="form-control border shadow" />
-                    <label asp-for="ImageUrl" class="ms-2"></label>
-                    <span asp-validation-for="ImageUrl" class="text-danger"></span>
-                </div>
-
-                <!-- Buttons: Create & Cancel -->
-                <div class="row pt-2">
-                    <div class="vol-6 col-md-3">
-                        <button type="submit"
-                                class="btn btn-success w-100">
-                            <i class="bi bi-check-circle"></i>
-                            Update
-                        </button>
+            <div class="col-9">
+                <div class="p-3">
+                    <!-- Name -->
+                    <div class="form-floating py-3 col-12">
+                        <input asp-for="Name" class="form-control border shadow" />
+                        <label asp-for="Name" class="ms-2"></label>
+                        <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
 
-                    <div class="vol-6 col-md-3">
-                        <a asp-controller="Villa"
-                           asp-action="Index"
-                           class="btn btn-secondary w-100">
-                            <i class="bi bi-check-circle"></i>
-                            Cancel
-                        </a>
+                    <!-- Description -->
+                    <div class="form-floating py-3 col-12">
+                        <input asp-for="Description" class="form-control border shadow" />
+                        <label asp-for="Description" class="ms-2"></label>
+                        <span asp-validation-for="Description" class="text-danger"></span>
                     </div>
+
+                    <!-- Price -->
+                    <div class="form-floating py-3 col-12">
+                        <input asp-for="Price" class="form-control border shadow" />
+                        <label asp-for="Price" class="ms-2"></label>
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+
+                    <!-- Sqft -->
+                    <div class="form-floating py-3 col-12">
+                        <input asp-for="Sqft" class="form-control border shadow" />
+                        <label asp-for="Sqft" class="ms-2"></label>
+                        <span asp-validation-for="Sqft" class="text-danger"></span>
+                    </div>
+
+                    <!-- Occupancy -->
+                    <div class="form-floating py-3 col-12">
+                        <input asp-for="Occupancy" class="form-control border shadow" />
+                        <label asp-for="Occupancy" class="ms-2"></label>
+                        <span asp-validation-for="Occupancy" class="text-danger"></span>
+                    </div>
+
+                    <!-- Image -->
+                    <div class="form-floating py-3 col-12">
+                        <input asp-for="ImageUrl" hidden class="form-control border shadow" />
+                        <input asp-for="Image" class="form-control border shadow" />
+                        <label asp-for="ImageUrl" class="ms-2"></label>
+                        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                    </div>
+
+                    <!-- Buttons: Create & Cancel -->
+                    <div class="row pt-2">
+                        <div class="vol-6 col-md-3">
+                            <button type="submit"
+                                    class="btn btn-success w-100">
+                                <i class="bi bi-check-circle"></i>
+                                Update
+                            </button>
+                        </div>
+
+                        <div class="vol-6 col-md-3">
+                            <a asp-controller="Villa"
+                               asp-action="Index"
+                               class="btn btn-secondary w-100">
+                                <i class="bi bi-check-circle"></i>
+                                Cancel
+                            </a>
+                        </div>
+                    </div>
+                    <!-- end of Buttons div.-->
                 </div>
-                <!-- end of Buttons div.-->
             </div>
+            <div class="col-3 pt-4">
+                <img src="@Model.ImageUrl" width="100%"
+                     style="border-radius:5px; border:1px solid #bbb9b9" />
+            </div>
+           
         </form>
     </div>
     <!-- end of card-body -->
