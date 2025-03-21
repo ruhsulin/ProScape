@@ -7,10 +7,12 @@ namespace ProScape.Web.Controllers;
 public class VillaController : Controller
 {
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IWebHostEnvironment _webHostEnvironment;
 
-    public VillaController(IUnitOfWork unitOfWork)
+    public VillaController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
     {
         _unitOfWork = unitOfWork;
+        _webHostEnvironment = webHostEnvironment;
     }
 
     public IActionResult Index()
@@ -32,8 +34,24 @@ public class VillaController : Controller
             ModelState.AddModelError("description", "The description cannot exactly match the name.");
         }
 
-        if ((ModelState.IsValid))
+        if (ModelState.IsValid)
         {
+            if (villa.Image != null)
+            {
+                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(villa.Image.FileName);
+                string imagePath = Path.Combine(_webHostEnvironment.WebRootPath, @"img/VillaImages");
+
+                using (var fileStream = new FileStream(Path.Combine(imagePath, fileName), FileMode.Create))
+                    villa.Image.CopyTo(fileStream);
+
+                villa.ImageUrl = @"\img\VillaImages\" + fileName;
+
+            }
+            else
+            {
+                villa.ImageUrl = "https://placeholder.co/600x400";
+            }
+
             _unitOfWork.Villa.Add(villa);
             _unitOfWork.Save();
             TempData["success"] = "The villa has been created successfully.";

@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProScape.Domain.Entities
 {
@@ -22,6 +24,9 @@ namespace ProScape.Domain.Entities
 
         [Display(Name = "Occupancy")]
         public int Occupancy { get; set; }
+
+        [NotMapped] //don't add to database
+        public IFormFile? Image { get; set; }
 
         [Display(Name = "Image")]
         public string? ImageUrl { get; set; }

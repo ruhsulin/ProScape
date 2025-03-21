@@ -22,4 +22,8 @@
     <ProjectReference Include="..\ProScape.Infrastructure\ProScape.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\img\VillaImages\" />
+  </ItemGroup>
+
 </Project>
