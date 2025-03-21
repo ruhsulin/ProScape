@@ -36,7 +36,7 @@ public class VillaController : Controller
 
         if (ModelState.IsValid)
         {
-            if (villa.Image != null)
+            if (villa.Image is not null)
             {
                 string fileName = Guid.NewGuid().ToString() + Path.GetExtension(villa.Image.FileName);
                 string imagePath = Path.Combine(_webHostEnvironment.WebRootPath, @"img/VillaImages");
@@ -45,7 +45,6 @@ public class VillaController : Controller
                     villa.Image.CopyTo(fileStream);
 
                 villa.ImageUrl = @"\img\VillaImages\" + fileName;
-
             }
             else
             {
@@ -57,6 +56,7 @@ public class VillaController : Controller
             TempData["success"] = "The villa has been created successfully.";
             return RedirectToAction("Index", "Villa");
         }
+
         TempData["error"] = "The villa could not been created!";
         return View();
     }
@@ -79,6 +79,27 @@ public class VillaController : Controller
     {
         if (ModelState.IsValid && villa.Id > 0)
         {
+            if (villa.Image != null)
+            {
+                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(villa.Image.FileName);
+                string imagePath = Path.Combine(_webHostEnvironment.WebRootPath, @"img/VillaImages");
+
+                if (!string.IsNullOrEmpty(villa.ImageUrl))
+                {
+                    var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, villa.ImageUrl.TrimStart('\\'));
+                    if (System.IO.File.Exists(oldImagePath))
+                    {
+                        System.IO.File.Delete(oldImagePath);
+                    }
+                }
+
+                using (var fileStream = new FileStream(Path.Combine(imagePath, fileName), FileMode.Create))
+                    villa.Image.CopyTo(fileStream);
+
+                villa.ImageUrl = @"\img\VillaImages\" + fileName;
+
+            }
+
             _unitOfWork.Villa.Update(villa);
             _unitOfWork.Save();
             TempData["success"] = "The villa has been updated successfully.";
@@ -109,6 +130,15 @@ public class VillaController : Controller
 
         if (objFromDb is not null)
         {
+            if (!string.IsNullOrEmpty(villa.ImageUrl))
+            {
+                var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, objFromDb.ImageUrl.TrimStart('\\'));
+                if (System.IO.File.Exists(oldImagePath))
+                {
+                    System.IO.File.Delete(oldImagePath);
+                }
+            }
+
             _unitOfWork.Villa.Remove(objFromDb);
             _unitOfWork.Save();
             TempData["success"] = "The villa has been deleted successfully.";
