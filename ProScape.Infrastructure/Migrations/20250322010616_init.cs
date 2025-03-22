@@ -34,6 +34,27 @@ namespace ProScape.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Amenities",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    VillaId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Amenities", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Amenities_Villas_VillaId",
+                        column: x => x.VillaId,
+                        principalTable: "Villas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "VillaNumbers",
                 columns: table => new
                 {
@@ -57,9 +78,18 @@ namespace ProScape.Infrastructure.Migrations
                 columns: new[] { "Id", "CreatedDate", "Description", "ImageUrl", "Name", "Occupancy", "Price", "Sqft", "UpdatedDate" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2025, 3, 14, 23, 11, 16, 747, DateTimeKind.Utc).AddTicks(9403), "A stunning villa with direct beach access and breathtaking ocean views.", "https://static.independent.co.uk/2024/01/09/12/FAO_83054_Villa_Mangas_Albufeira_0723_01_RGB-136-DPI-For-Web.jpg", "Luxury Beachfront Villa", 8, 500.0, 3500, new DateTime(2025, 3, 14, 23, 11, 16, 747, DateTimeKind.Utc).AddTicks(9409) },
-                    { 2, new DateTime(2025, 3, 14, 23, 11, 16, 747, DateTimeKind.Utc).AddTicks(9412), "A cozy villa nestled in the mountains, perfect for a relaxing getaway.", "https://media.graphassets.com/kcqbCpucTbmzbM5yqelI", "Mountain Retreat", 6, 300.0, 2500, new DateTime(2025, 3, 14, 23, 11, 16, 747, DateTimeKind.Utc).AddTicks(9412) },
-                    { 3, new DateTime(2025, 3, 14, 23, 11, 16, 747, DateTimeKind.Utc).AddTicks(9414), "A modern penthouse villa located in the heart of the city with skyline views.", "https://static.baranselgrup.com/nwm-248899-w1278-bavadi-villalari.png", "Urban Penthouse", 10, 700.0, 4000, new DateTime(2025, 3, 14, 23, 11, 16, 747, DateTimeKind.Utc).AddTicks(9414) }
+                    { 1, new DateTime(2025, 3, 22, 1, 6, 16, 179, DateTimeKind.Utc).AddTicks(3014), "A stunning villa with direct beach access and breathtaking ocean views.", "https://static.independent.co.uk/2024/01/09/12/FAO_83054_Villa_Mangas_Albufeira_0723_01_RGB-136-DPI-For-Web.jpg", "Luxury Beachfront Villa", 8, 500.0, 3500, new DateTime(2025, 3, 22, 1, 6, 16, 179, DateTimeKind.Utc).AddTicks(3018) },
+                    { 2, new DateTime(2025, 3, 22, 1, 6, 16, 179, DateTimeKind.Utc).AddTicks(3021), "A cozy villa nestled in the mountains, perfect for a relaxing getaway.", "https://media.graphassets.com/kcqbCpucTbmzbM5yqelI", "Mountain Retreat", 6, 300.0, 2500, new DateTime(2025, 3, 22, 1, 6, 16, 179, DateTimeKind.Utc).AddTicks(3022) },
+                    { 3, new DateTime(2025, 3, 22, 1, 6, 16, 179, DateTimeKind.Utc).AddTicks(3023), "A modern penthouse villa located in the heart of the city with skyline views.", "https://static.baranselgrup.com/nwm-248899-w1278-bavadi-villalari.png", "Urban Penthouse", 10, 700.0, 4000, new DateTime(2025, 3, 22, 1, 6, 16, 179, DateTimeKind.Utc).AddTicks(3024) }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Amenities",
+                columns: new[] { "Id", "Description", "Name", "VillaId" },
+                values: new object[,]
+                {
+                    { 10, null, "Private Pool", 1 },
+                    { 11, null, "Microwave", 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -77,6 +107,11 @@ namespace ProScape.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Amenities_VillaId",
+                table: "Amenities",
+                column: "VillaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_VillaNumbers_VillaId",
                 table: "VillaNumbers",
                 column: "VillaId");
@@ -85,6 +120,9 @@ namespace ProScape.Infrastructure.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Amenities");
+
             migrationBuilder.DropTable(
                 name: "VillaNumbers");
 
