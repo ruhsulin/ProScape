@@ -10,6 +10,7 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<Villa> Villas { get; set; }
     public DbSet<VillaNumber> VillaNumbers { get; set; }
+    public DbSet<Amenity> Amenities { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -92,5 +93,20 @@ public class ApplicationDbContext : DbContext
                     VillaId = 3,
                 }
      );
+
+        modelBuilder.Entity<Amenity>().HasData(
+            new Amenity
+            {
+                Id = 10,
+                VillaId = 1,
+                Name = "Private Pool"
+            },
+            new Amenity
+            {
+                Id = 11,
+                VillaId = 2,
+                Name = "Microwave"
+            }
+            );
     }
 }

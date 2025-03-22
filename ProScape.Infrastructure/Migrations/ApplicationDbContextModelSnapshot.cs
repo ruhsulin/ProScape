@@ -22,6 +22,45 @@ namespace ProScape.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("ProScape.Domain.Entities.Amenity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("VillaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("VillaId");
+
+                    b.ToTable("Amenities");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 10,
+                            Name = "Private Pool",
+                            VillaId = 1
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Name = "Microwave",
+                            VillaId = 2
+                        });
+                });
+
             modelBuilder.Entity("ProScape.Domain.Entities.Villa", b =>
                 {
                     b.Property<int>("Id")
@@ -64,38 +103,38 @@ namespace ProScape.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2025, 3, 14, 23, 11, 16, 747, DateTimeKind.Utc).AddTicks(9403),
+                            CreatedDate = new DateTime(2025, 3, 22, 1, 6, 16, 179, DateTimeKind.Utc).AddTicks(3014),
                             Description = "A stunning villa with direct beach access and breathtaking ocean views.",
                             ImageUrl = "https://static.independent.co.uk/2024/01/09/12/FAO_83054_Villa_Mangas_Albufeira_0723_01_RGB-136-DPI-For-Web.jpg",
                             Name = "Luxury Beachfront Villa",
                             Occupancy = 8,
                             Price = 500.0,
                             Sqft = 3500,
-                            UpdatedDate = new DateTime(2025, 3, 14, 23, 11, 16, 747, DateTimeKind.Utc).AddTicks(9409)
+                            UpdatedDate = new DateTime(2025, 3, 22, 1, 6, 16, 179, DateTimeKind.Utc).AddTicks(3018)
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2025, 3, 14, 23, 11, 16, 747, DateTimeKind.Utc).AddTicks(9412),
+                            CreatedDate = new DateTime(2025, 3, 22, 1, 6, 16, 179, DateTimeKind.Utc).AddTicks(3021),
                             Description = "A cozy villa nestled in the mountains, perfect for a relaxing getaway.",
                             ImageUrl = "https://media.graphassets.com/kcqbCpucTbmzbM5yqelI",
                             Name = "Mountain Retreat",
                             Occupancy = 6,
                             Price = 300.0,
                             Sqft = 2500,
-                            UpdatedDate = new DateTime(2025, 3, 14, 23, 11, 16, 747, DateTimeKind.Utc).AddTicks(9412)
+                            UpdatedDate = new DateTime(2025, 3, 22, 1, 6, 16, 179, DateTimeKind.Utc).AddTicks(3022)
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2025, 3, 14, 23, 11, 16, 747, DateTimeKind.Utc).AddTicks(9414),
+                            CreatedDate = new DateTime(2025, 3, 22, 1, 6, 16, 179, DateTimeKind.Utc).AddTicks(3023),
                             Description = "A modern penthouse villa located in the heart of the city with skyline views.",
                             ImageUrl = "https://static.baranselgrup.com/nwm-248899-w1278-bavadi-villalari.png",
                             Name = "Urban Penthouse",
                             Occupancy = 10,
                             Price = 700.0,
                             Sqft = 4000,
-                            UpdatedDate = new DateTime(2025, 3, 14, 23, 11, 16, 747, DateTimeKind.Utc).AddTicks(9414)
+                            UpdatedDate = new DateTime(2025, 3, 22, 1, 6, 16, 179, DateTimeKind.Utc).AddTicks(3024)
                         });
                 });
 
@@ -152,6 +191,17 @@ namespace ProScape.Infrastructure.Migrations
                             Villa_Number = 302,
                             VillaId = 3
                         });
+                });
+
+            modelBuilder.Entity("ProScape.Domain.Entities.Amenity", b =>
+                {
+                    b.HasOne("ProScape.Domain.Entities.Villa", "Villa")
+                        .WithMany()
+                        .HasForeignKey("VillaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Villa");
                 });
 
             modelBuilder.Entity("ProScape.Domain.Entities.VillaNumber", b =>
