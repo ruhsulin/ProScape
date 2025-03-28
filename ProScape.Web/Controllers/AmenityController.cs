@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ProScape.Application.Common.Interfaces;
+using ProScape.Application.Common.Utility;
 using ProScape.Domain.Entities;
 using ProScape.Web.ViewModels;
 
 namespace ProScape.Web.Controllers;
 
+[Authorize(Roles = StaticDetails.Role_Admin)]
 public class AmenityController : Controller
 {
     private readonly IUnitOfWork _unitOfWork;

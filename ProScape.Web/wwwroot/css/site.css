@@ -32,14 +32,14 @@ body {
 .nav-link, .footer p {
         font-family: "Poppins", sans-serif;
         font-size: 1.3rem;
-        font-weight: 600;
+        font-weight: 400;
         letter-spacing: 1.5px;
         color: #FFF7F3;
         transition: color 0.3s ease;
     }
 
 .nav-link:hover {
-            color: #f07268 !important;
+            color: #f0b2ad !important;
         }
 
 /*Logo*/
@@ -51,7 +51,7 @@ body {
     color: #c0beab;  
 }
 .text-pro {
-    color: #f07268;
+    color: #f0b2ad;
 }
 
 /*** End of Logo ***/
@@ -101,6 +101,26 @@ footer {
     padding: 5px ;
 }
 .btn-1-outline:hover {
+        background: #502044;
+        color: #fffce3;
+        font-weight: 600;
+        font-family: "Poppins", sans-serif;
+        border: solid 2px #502044;
+        padding: 5px 20px;
+    }
+
+.btn-login-outline {
+    background: transparent;
+    color: #f0b2ad;
+    font-weight: 600;
+    font-size: 1rem;
+    font-family: "Poppins", sans-serif;
+    border: solid 2px #f0b2ad;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+    .btn-login-outline:hover {
         background: #502044;
         color: #fffce3;
         font-weight: 600;

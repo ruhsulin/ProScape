@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ProScape.Application.Common.Interfaces;
+using ProScape.Application.Common.Utility;
 using ProScape.Domain.Entities;
 
 namespace ProScape.Web.Controllers;
 
+[Authorize]
 public class VillaController : Controller
 {
     private readonly IUnitOfWork _unitOfWork;
@@ -21,6 +24,7 @@ public class VillaController : Controller
         return View(villas);
     }
 
+    [Authorize(Roles = StaticDetails.Role_Admin)]
     public IActionResult Create()
     {
         return View();

@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ProScape.Application.Common.Interfaces;
+using ProScape.Domain.Entities;
 using ProScape.Infrastructure.Data;
 using ProScape.Infrastructure.Repository;
 
@@ -12,6 +14,16 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(option =>
 option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// Configuring Identity
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
+
+// Configure Password Requirement Options
+builder.Services.Configure<IdentityOptions>(option =>
+{
+    option.Password.RequiredLength = 6;
+});
 
 // Add Dependencies
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();

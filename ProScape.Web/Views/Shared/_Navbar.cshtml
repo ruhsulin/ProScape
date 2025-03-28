@@ -1,4 +1,8 @@
-﻿<nav class="navbar navbar-expand-sm"  box-shadow >
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<nav class="navbar navbar-expand-sm"  box-shadow >
     <div class="container-fluid">
         <!-- Logo -->
         <a class="navbar-brand" href="#">
@@ -45,6 +49,41 @@
                         Amenities
                     </a>
                 </li>
+                <!-- Checking if user is signed in -->
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <!-- User's name -->
+                    <li class="nav-item p-1">
+                        <a class="nav-link btn-login-outline"
+                           asp-area=""
+                           asp-controller="Account"
+                           asp-action="LogOut">
+                           Hi, @UserManager.GetUserName(User)!
+                        </a>
+                    </li>
+                    <!-- LogOut -->
+                    <li class="nav-item p-1">
+                        <a class="nav-link btn-login-outline"
+                           asp-area=""
+                           asp-controller="Account"
+                           asp-action="LogOut">
+                            LogOut
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <!-- LogIn -->
+                    <li class="nav-item p-1">
+                        <a class="nav-link btn-login-outline"
+                           asp-area=""
+                           asp-controller="Account"
+                           asp-action="Login">
+                            Login
+                        </a>
+                    </li>
+                }   
+                
             </ul>
         </div>
     </div>
