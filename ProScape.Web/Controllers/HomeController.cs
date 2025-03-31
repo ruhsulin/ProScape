@@ -27,6 +27,29 @@ namespace ProScape.Web.Controllers
             return View(homeViewModel);
         }
 
+        [HttpPost]
+        public IActionResult GetVillasByDate(int nights, DateOnly checkInDate)
+        {
+            // Thread.Sleep(3000);
+            var villaList = _unitOfWork.Villa.GetAll(includeProperties: "VillaAmenity").ToList();
+            foreach (var villa in villaList)
+            {
+                if (villa.Id % 2 == 0)
+                {
+                    villa.IsAvailable = false;
+                }
+            }
+
+            HomeViewModel homeViewModel = new()
+            {
+                CheckInDate = checkInDate,
+                VillaList = villaList,
+                Nights = nights
+            };
+
+            return PartialView("_VillaList", homeViewModel);
+        }
+
         public IActionResult Privacy()
         {
             return View();
