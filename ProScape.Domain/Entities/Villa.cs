@@ -38,5 +38,8 @@ namespace ProScape.Domain.Entities
         // One villa can have multiple amenities
         [ValidateNever]
         public IEnumerable<Amenity> VillaAmenity { get; set; }
+
+        [NotMapped]
+        public bool IsAvailable { get; set; } = true;
     }
 }
