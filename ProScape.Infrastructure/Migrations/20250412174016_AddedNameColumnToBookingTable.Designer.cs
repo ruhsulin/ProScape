@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProScape.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using ProScape.Infrastructure.Data;
 namespace ProScape.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250412174016_AddedNameColumnToBookingTable")]
+    partial class AddedNameColumnToBookingTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -281,21 +284,17 @@ namespace ProScape.Infrastructure.Migrations
                     b.Property<DateTime>("BookingDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("CheckInDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly>("CheckInDate")
+                        .HasColumnType("date");
 
-                    b.Property<DateTime>("CheckOutDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly>("CheckOutDate")
+                        .HasColumnType("date");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -369,38 +368,38 @@ namespace ProScape.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2025, 4, 13, 16, 4, 58, 362, DateTimeKind.Utc).AddTicks(1601),
+                            CreatedDate = new DateTime(2025, 4, 12, 17, 40, 16, 192, DateTimeKind.Utc).AddTicks(3599),
                             Description = "A stunning villa with direct beach access and breathtaking ocean views.",
                             ImageUrl = "https://static.independent.co.uk/2024/01/09/12/FAO_83054_Villa_Mangas_Albufeira_0723_01_RGB-136-DPI-For-Web.jpg",
                             Name = "Luxury Beachfront Villa",
                             Occupancy = 8,
                             Price = 500.0,
                             Sqft = 3500,
-                            UpdatedDate = new DateTime(2025, 4, 13, 16, 4, 58, 362, DateTimeKind.Utc).AddTicks(1606)
+                            UpdatedDate = new DateTime(2025, 4, 12, 17, 40, 16, 192, DateTimeKind.Utc).AddTicks(3603)
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2025, 4, 13, 16, 4, 58, 362, DateTimeKind.Utc).AddTicks(1609),
+                            CreatedDate = new DateTime(2025, 4, 12, 17, 40, 16, 192, DateTimeKind.Utc).AddTicks(3606),
                             Description = "A cozy villa nestled in the mountains, perfect for a relaxing getaway.",
                             ImageUrl = "https://media.graphassets.com/kcqbCpucTbmzbM5yqelI",
                             Name = "Mountain Retreat",
                             Occupancy = 6,
                             Price = 300.0,
                             Sqft = 2500,
-                            UpdatedDate = new DateTime(2025, 4, 13, 16, 4, 58, 362, DateTimeKind.Utc).AddTicks(1609)
+                            UpdatedDate = new DateTime(2025, 4, 12, 17, 40, 16, 192, DateTimeKind.Utc).AddTicks(3607)
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2025, 4, 13, 16, 4, 58, 362, DateTimeKind.Utc).AddTicks(1611),
+                            CreatedDate = new DateTime(2025, 4, 12, 17, 40, 16, 192, DateTimeKind.Utc).AddTicks(3608),
                             Description = "A modern penthouse villa located in the heart of the city with skyline views.",
                             ImageUrl = "https://static.baranselgrup.com/nwm-248899-w1278-bavadi-villalari.png",
                             Name = "Urban Penthouse",
                             Occupancy = 10,
                             Price = 700.0,
                             Sqft = 4000,
-                            UpdatedDate = new DateTime(2025, 4, 13, 16, 4, 58, 362, DateTimeKind.Utc).AddTicks(1612)
+                            UpdatedDate = new DateTime(2025, 4, 12, 17, 40, 16, 192, DateTimeKind.Utc).AddTicks(3609)
                         });
                 });
 
