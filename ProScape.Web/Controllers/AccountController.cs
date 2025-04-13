@@ -49,6 +49,7 @@ public class AccountController : Controller
                 FirstName = registerViewModel.FirstName,
                 LastName = registerViewModel.LastName,
                 PhoneNumber = registerViewModel.PhoneNumber,
+                Email = registerViewModel.Email,
                 NormalizedEmail = registerViewModel.Email.ToUpper(),
                 EmailConfirmed = true,
                 UserName = registerViewModel.Email,
@@ -69,7 +70,6 @@ public class AccountController : Controller
                 else
                 {
                     return LocalRedirect(registerViewModel.RedirectUrl); ;
-
                 }
             }
             foreach (var error in result.Errors)
