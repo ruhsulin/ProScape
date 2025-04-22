@@ -4,7 +4,7 @@ using ProScape.Infrastructure.Data;
 
 namespace ProScape.Infrastructure.Repository;
 
-public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicationUserRepository
+public class ApplicationUserRepository : BaseRepository<ApplicationUser>, IApplicationUserRepository
 {
     private readonly ApplicationDbContext _db;
 
