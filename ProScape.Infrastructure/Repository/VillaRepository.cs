@@ -4,7 +4,7 @@ using ProScape.Infrastructure.Data;
 
 namespace ProScape.Infrastructure.Repository;
 
-public class VillaRepository : Repository<Villa>, IVillaRepository
+public class VillaRepository : BaseRepository<Villa>, IVillaRepository
 {
     private readonly ApplicationDbContext _db;
 

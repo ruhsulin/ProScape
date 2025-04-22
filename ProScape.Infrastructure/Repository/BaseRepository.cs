@@ -5,12 +5,12 @@ using System.Linq.Expressions;
 
 namespace ProScape.Infrastructure.Repository;
 
-public class Repository<T> : IRepository<T> where T : class
+public class BaseRepository<T> : IRepository<T> where T : class
 {
     private readonly ApplicationDbContext _db;
     internal DbSet<T> dbSet;
 
-    public Repository(ApplicationDbContext db)
+    public BaseRepository(ApplicationDbContext db)
     {
         _db = db;
         dbSet = _db.Set<T>();
