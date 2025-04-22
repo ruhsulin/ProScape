@@ -4,7 +4,7 @@ using ProScape.Infrastructure.Data;
 
 namespace ProScape.Infrastructure.Repository;
 
-public class AmenityRepository : Repository<Amenity>, IAmenityRepository
+public class AmenityRepository : BaseRepository<Amenity>, IAmenityRepository
 {
     public readonly ApplicationDbContext _db;
 
