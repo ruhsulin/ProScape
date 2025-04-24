@@ -24,11 +24,13 @@
         </div>
         <table class="table table-bordered table-striped">
             <thead>
-            <th style="width:7%;"> Id </th>
-            <th style="width:20%;"> Name </th>
-            <th style="width:20%;"> Villa Name </th>
-            <th style="width:33%;"> Description </th>
-            <th style="width:20%;"> Actions </th>
+                <tr>
+                    <th style="width:7%;"> Id </th>
+                    <th style="width:20%;"> Name </th>
+                    <th style="width:20%;"> Villa Name </th>
+                    <th style="width:33%;"> Description </th>
+                    <th style="width:20%;"> Actions </th>
+                </tr>
             </thead>
             <tbody>
                 @foreach (var obj in Model)
@@ -38,7 +40,7 @@
                         <td>@obj.Name</td>
                         <td>@obj.Villa.Name</td>
                         <td>@obj.Description</td>
-                        
+
                         <td>
                             <div class="w-75 btn-group" role="group">
                                 <a asp-controller="Amenity"
