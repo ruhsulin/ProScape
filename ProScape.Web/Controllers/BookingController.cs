@@ -15,10 +15,17 @@ namespace ProScape.Web.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly UserManager<ApplicationUser> _userManager;
 
+        // Constructor
         public BookingController(IUnitOfWork unitOfWork, UserManager<ApplicationUser> userManager)
         {
             _unitOfWork = unitOfWork;
             _userManager = userManager;
+        }
+
+        [Authorize]
+        public IActionResult Index()
+        {
+            return View();
         }
 
         [Authorize]
@@ -110,7 +117,6 @@ namespace ProScape.Web.Controllers
 
             Response.Headers.Add("Location", session.Url);
             return new StatusCodeResult(303);
-
         }
 
         [Authorize]
@@ -132,5 +138,28 @@ namespace ProScape.Web.Controllers
             }
             return View(bookingId);
         }
+
+        #region API Calls
+        [HttpGet]
+        [Authorize]
+        public IActionResult GetAll()
+        {
+            IEnumerable<Booking> objBookings;
+            if (User.IsInRole(StaticDetails.Role_Admin))
+            {
+                objBookings = _unitOfWork.Booking.GetAll(includeProperties: "User,Villa");
+            }
+            else
+            {
+                var claimsIdentity = User.Identity as ClaimsIdentity;
+                var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+                objBookings = _unitOfWork.Booking.GetAll(u => u.UserId == userId, includeProperties: "User,Villa");
+            }
+            objBookings = _unitOfWork.Booking.GetAll(includeProperties: "User,Villa");
+
+            return Json(new { data = objBookings });
+        }
+        #endregion
     }
 }
