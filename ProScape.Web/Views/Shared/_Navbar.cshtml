@@ -2,7 +2,7 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-<nav class="navbar navbar-expand-sm"  box-shadow >
+<nav class="navbar navbar-expand-sm" box-shadow>
     <div class="container-fluid">
         <!-- Logo -->
         <a class="navbar-brand" href="#">
@@ -49,6 +49,14 @@
                         Amenities
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link"
+                       asp-area=""
+                       asp-controller="Booking"
+                       asp-action="Index">
+                        Booking
+                    </a>
+                </li>
                 <!-- Checking if user is signed in -->
                 @if (SignInManager.IsSignedIn(User))
                 {
@@ -58,7 +66,7 @@
                            asp-area=""
                            asp-controller="Account"
                            asp-action="LogOut">
-                           Hi, @UserManager.GetUserName(User)!
+                            Hi, @UserManager.GetUserName(User)!
                         </a>
                     </li>
                     <!-- LogOut -->
@@ -82,8 +90,8 @@
                             Login
                         </a>
                     </li>
-                }   
-                
+                }
+
             </ul>
         </div>
     </div>
