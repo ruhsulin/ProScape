@@ -142,7 +142,9 @@ namespace ProScape.Web.Controllers
         #region API Calls
         [HttpGet]
         [Authorize]
-        public IActionResult GetAll()
+        [Route("booking/getall")]
+
+        public IActionResult GetAll(string status)
         {
             IEnumerable<Booking> objBookings;
             if (User.IsInRole(StaticDetails.Role_Admin))
@@ -156,7 +158,14 @@ namespace ProScape.Web.Controllers
 
                 objBookings = _unitOfWork.Booking.GetAll(u => u.UserId == userId, includeProperties: "User,Villa");
             }
-            objBookings = _unitOfWork.Booking.GetAll(includeProperties: "User,Villa");
+
+            if (!string.IsNullOrEmpty(status))
+            {
+                objBookings = objBookings.Where(u => u.Status.ToLower().Equals(status.ToLower()));
+            }
+            var rawStatus = Request.Query["status"].ToString();
+
+            Console.WriteLine($"🔥 STATUS FROM QUERY: {rawStatus}");
 
             return Json(new { data = objBookings });
         }

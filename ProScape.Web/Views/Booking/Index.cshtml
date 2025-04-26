@@ -1,4 +1,39 @@
-﻿<div class="w-100 card border-0 p-4">
+﻿@{
+    var status = Context.Request.Query["status"];
+
+    var approved = "";
+    var pending = "";
+    var checkedIn = "";
+    var completed = "";
+    var canceled = "";
+
+    switch (status)
+    {
+        case StaticDetails.StatusPending:
+            pending = "text-white bg-success";
+            break;
+
+        case StaticDetails.StatusApproved:
+            approved = "text-white bg-success";
+            break;
+
+        case StaticDetails.StatusCheckedIn:
+            checkedIn = "text-white bg-success";
+            break;
+
+        case StaticDetails.StatusCompleted:
+            completed = "text-white bg-success";
+            break;
+
+        case StaticDetails.StatusCancelled:
+            canceled = "text-white bg-success";
+            break;
+
+        default: break;
+    }
+
+}
+<div class="w-100 card border-0 p-4">
     <!-- card-header -->
     <div class="card-header bg-dark bg-gardient ml-0 py-3">
         <div class="row">
@@ -10,6 +45,50 @@
     <!-- end of card-header -->
     <!-- card-body -->
     <div class="card-body border p-4">
+        <div class="d-flex justify-content-end pb-4 pt-2">
+            <ul class="list-group list-group-horizontal-sm">
+                <!-- Status Pending-->
+                <a style="text-decoration:none;"
+                   asp-controller="Booking"
+                   asp-action="Index"
+                   asp-route-status="@StaticDetails.StatusPending">
+                <li class="list-group-item @pending"> Pending </li>
+                </a>
+
+                <!-- Status Approved-->
+                <a style="text-decoration:none;"
+                   asp-controller="Booking"
+                   asp-action="Index"
+                   asp-route-status="@StaticDetails.StatusApproved">
+                <li class="list-group-item @approved"> Approved </li>
+                </a>
+
+                <!-- Checked In -->
+                <a style="text-decoration:none;"
+                   asp-controller="Booking"
+                   asp-action="Index"
+                   asp-route-status="@StaticDetails.StatusCheckedIn">
+                <li class="list-group-item @checkedIn"> @StaticDetails.StatusCheckedIn </li>
+                </a>
+
+                <!-- Status Completed -->
+                <a style="text-decoration:none;"
+                   asp-controller="Booking"
+                   asp-action="Index"
+                   asp-route-status="@StaticDetails.StatusCompleted">
+                <li class="list-group-item @completed"> @StaticDetails.StatusCompleted </li>
+                </a>
+
+                <!-- Status Cancelled-->
+                <a style="text-decoration:none;"
+                   asp-controller="Booking"
+                   asp-action="Index"
+                   asp-route-status="@StaticDetails.StatusCancelled">
+                <li class="list-group-item @canceled"> @StaticDetails.StatusCancelled </li>
+                </a>
+
+            </ul>
+        </div>
         <table id="tblBookings" class="table table-bordered table-striped">
             <thead>
                 <tr>

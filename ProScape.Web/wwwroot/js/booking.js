@@ -1,13 +1,16 @@
 ﻿var dataTable;
 
 $(document).ready(function () {
-    loadDataTable();
+    const urlParams = new URLSearchParams(window.location.search);
+    const status = urlParams.get('status');
+
+    loadDataTable(status);
 });
 
-function loadDataTable() {
+function loadDataTable(status) {
     dataTable = $('#tblBookings').DataTable({
         "ajax": {
-            url: '/booking/getall'
+           url: '/booking/getall?status='+status
         },
         "columns": [
             { data: 'id', width: "5%" },
@@ -22,7 +25,7 @@ function loadDataTable() {
             {
                 data: 'id',
                 "render": function (data) {
-                    return `<div class="w-75 btn-group">
+                    return `<div class="w-100 btn-group">
                         <a href="/booking/bookingDetails?bookingId=${data}" class="btn btn-outline-warning mx-2">
                         <i class="bi bi-pencil-square"></i> Details
                         </a>
