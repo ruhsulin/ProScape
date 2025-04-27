@@ -7,6 +7,9 @@ using ProScape.Infrastructure.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Set Stripe API key from configuration
+Stripe.StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
